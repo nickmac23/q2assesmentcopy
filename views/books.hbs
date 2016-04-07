@@ -38,6 +38,14 @@
       <br>
       <p class="list-group-item-text"><td>{{this.description}}</td></p>
     </div>
+    <div class="media-right">
+      <form class="form-group" action="/books/{{this.book_id}}/delete" method="post">
+        <input type="submit" class='btn btn-default' value="delete">
+      </form>
+      <form class="form-group" action="/books/{{this.book_id}}/edit" method="post">
+        <input type="submit"  class='btn btn-primary' value="edit  ">
+      </form>
+    </div>
   </div>
 {{/books}}
 </div>

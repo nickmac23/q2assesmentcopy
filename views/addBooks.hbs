@@ -1,0 +1,43 @@
+<form class="form-horizontal" action='/books/addbooks' method='post'>
+  <fieldset>
+    <div class="form-group">
+      <label class="col-lg-2 control-label">Title</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name='Title' placeholder="Enter Title">
+      </div>
+      <label class="col-lg-1 control-label">Genre</label>
+      <div class="col-lg-4">
+        <input class="form-control" name='genre' placeholder="Enter Genre">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-2 control-label">Author</label>
+      <div class="col-lg-4">
+        <input type="text" class="form-control" name='firstName' placeholder="Enter First name">
+      </div>
+      <label class="col-lg-1 control-label">Last Name</label>
+      <div class="col-lg-4 ">
+        <input type="text" class="form-control" name='lastName' placeholder="Enter Last name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-lg-2 control-label">Cover Photo</label>
+      <div class="col-lg-9">
+        <input type="text" class="form-control" name='url' placeholder="Enter cover photo url">
+      </div>
+    </div>
+    </div>
+    <div class="form-group">
+      <label for="textArea" class="col-lg-2 control-label">Book Description</label>
+      <div class="col-lg-9">
+        <textarea class="form-control" rows="3" name='description' placeholder='Enter short description'></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-2 col-lg-offset-9 botton">
+        <a href='/books'><button class="btn btn-default">Cancel</button></a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
