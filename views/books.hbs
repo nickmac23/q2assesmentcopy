@@ -1,3 +1,40 @@
-{{#each books}}
-  {{title}}
-{{\each books}}
+<div class="sideNave col-lg-1 col-md-offset-1" >
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <img src="http://fillmurray.com/100/100" alt="...">
+        <br>
+        <div class="caption">
+          <h3>Authors</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="http://fillmurray.com/100/100" alt="...">
+      <br>
+      <div class="caption">
+        <h3>Books</h3>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<div class="scroll">
+
+{{#books}}
+  <div class="media col-lg-9 col-lg-offset-1">
+    <div class="media-left">
+      <a href="#">
+        <img class="media-object" src="{{this.cover_url}}" alt="...">
+      </a>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{this.title}}</h4>
+      <p class="list-group-item-text"><td>{{this.description}}</td></p>
+    </div>
+  </div>
+{{/books}}
+</div>

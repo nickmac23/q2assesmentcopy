@@ -1,8 +1,24 @@
-.col-lg-6{
+.mainPage{
   height: 600px ;
 }
 .jumbotron{
   height: 90%;
   text-align: center;
   padding-top: 10px;
+}
+  img{
+    width: 100px;
+  }
+.scroll{
+  overflow: scroll;
+  height: 600px;
+  /*border: so: ;lid black 1px;*/
+}
+.sideNave{
+  border: solid black 1px;
+  height: 600px;
+}
+.row{
+  border: solid black 1px;
+  height: 300px;
 }
