@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var queries = require('../lib');
 var knex = require('knex')(require('../knexfile')['development']);
 
 router.get('/', function ( req, res, next ) {
-  knex('authors').leftOuterJoin('booksAuthors', 'booksAuthors.author_fk', 'authors.author_id').leftOuterJoin('books', 'books.book_id', 'booksAuthors.book_fk')
-  .then( function(books){
-    console.log(books);
-    res.render('authors', {authors: books});
+  queries.listAll().then( function (authors) {
+    res.render('authors', {authors: authors});
   });
 } )
 
@@ -33,7 +32,7 @@ router.post('/addAuthor', function (req, res, next ) {
 })
 router.get('/:id', function (req, res, next) {
   var grr = [];
-  knex('booksAuthors').rightOuterJoin('authors', 'booksAuthors.author_fk', 'authors.author_id').rightOuterJoin('books', 'books.book_id', 'booksAuthors.book_fk').where({author_id: req.params.id})
+  knex('booksAuthors').rightOuterJoin('authors', 'booksAuthors.author_fk', 'authors.id').rightOuterJoin('books', 'books.id', 'booksAuthors.book_fk').where({'authors.id': req.params.id})
   .then( function (author) {
     for (var i = 0; i < author.length; i++) {
       grr.push(author[i].title)
@@ -43,19 +42,19 @@ router.get('/:id', function (req, res, next) {
   })
 })
 router.post('/:id/delete', function (req, res, next) {
-  knex('authors').where({author_id: req.params.id}).del()
+  knex('authors').where({id: req.params.id}).del()
     .then( function () {
       res.redirect('/authors')
     })
 })
 router.get('/:id/edit', function (req, res, next) {
-  knex('authors').where({author_id: req.params.id}).first()
+  knex('authors').where({id: req.params.id}).first()
     .then( function (author) {
       res.render('editauthor' , {author: author})
     })
 })
 router.post('/:id/edit', function (req, res, next) {
-  knex('authors').where({author_id: req.params.id}).update({
+  knex('authors').where({id: req.params.id}).update({
     firstName: req.body.firstName.toLowerCase(),
     lastName: req.body.lastName.toLowerCase(),
     biography: req.body.bio,

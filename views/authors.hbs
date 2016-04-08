@@ -31,21 +31,21 @@
 {{#authors}}
   <div class="media col-lg-9 col-lg-offset-1">
     <div class="media-left">
-      <a href="/authors/{{this.author_id}}">
+      <a href="/authors/{{this.author_fk}}">
         <img class="media-object" src="{{this.portrait_url}}" alt="...">
       </a>
     </div>
     <div class="media-body">
-      <h4 class="media-heading">{{this.lastName}}, {{this.firstName}}</h4>
+      <h4 class="media-heading"><a href="/authors/{{this.author_fk}}">{{this.lastName}}, {{this.firstName}}</a></h4>
       <h5 class="list-group-item-text">biography: {{this.biography}}</h5>
       <h5 class="list-group-item-text">books: <a href='/books/{{this.book_id}}'>{{this.title}}</a></h5>
 
     </div>
     <div class="media-right">
-      <form class="form-group" action="/authors/{{this.author_id}}/delete" method="post">
+      <form class="form-group" action="/authors/{{this.author_fk}}/delete" method="post">
         <input type="submit" class='btn btn-default' value="delete">
       </form>
-      <form class="form-group" action="/authors/{{this.author_id}}/edit" method="get">
+      <form class="form-group" action="/authors/{{this.author_fk}}/edit" method="get">
         <input type="submit"  class='btn btn-primary' value="edit">
       </form>
     </div>
