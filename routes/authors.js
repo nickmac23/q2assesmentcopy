@@ -31,7 +31,17 @@ router.post('/addAuthor', function (req, res, next ) {
       }
   })
 })
-
+router.get('/:id', function (req, res, next) {
+  var grr = [];
+  knex('booksAuthors').rightOuterJoin('authors', 'booksAuthors.author_fk', 'authors.author_id').rightOuterJoin('books', 'books.book_id', 'booksAuthors.book_fk').where({author_id: req.params.id})
+  .then( function (author) {
+    for (var i = 0; i < author.length; i++) {
+      grr.push(author[i].title)
+    }
+    console.log(author);
+    res.render('authors', {authors: author, titles: grr})
+  })
+})
 router.post('/:id/delete', function (req, res, next) {
   knex('authors').where({author_id: req.params.id}).del()
     .then( function () {

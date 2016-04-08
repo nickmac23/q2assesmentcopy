@@ -31,14 +31,14 @@
 {{#authors}}
   <div class="media col-lg-9 col-lg-offset-1">
     <div class="media-left">
-      <a href="#">
+      <a href="/authors/{{this.author_id}}">
         <img class="media-object" src="{{this.portrait_url}}" alt="...">
       </a>
     </div>
     <div class="media-body">
       <h4 class="media-heading">{{this.lastName}}, {{this.firstName}}</h4>
       <h5 class="list-group-item-text">biography: {{this.biography}}</h5>
-      <h5 class="list-group-item-text">books: {{this.title}}</h5>
+      <h5 class="list-group-item-text">books: <a href='/books/{{this.book_id}}'>{{this.title}}</a></h5>
 
     </div>
     <div class="media-right">
