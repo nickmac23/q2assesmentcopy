@@ -59,7 +59,6 @@ router.post('/addbooks', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
   knex('booksAuthors').rightOuterJoin('authors', 'booksAuthors.author_fk', 'authors.author_id').rightOuterJoin('books', 'books.book_id', 'booksAuthors.book_fk').where({book_id: req.params.id})
     .then( function (book) {
-      console.log(book);
       res.render('books', {books: book});
     })
 });
