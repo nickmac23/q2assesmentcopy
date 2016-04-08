@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var knex = require('knex')(require('../knexfile')['development']);
 var queries = require('../lib');
+var limit;
 
 
 var addBook = function(book){
@@ -51,7 +52,8 @@ var addGenre = function(book) {
 };
 
 router.get('/', function(req, res, next) {
-    queries.listAll().then(function(books) {
+    queries.listAll().then(function(books)
+ {
       knex('genres').then(function(genres){
         res.render('books', {
             gen: genres,
