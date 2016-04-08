@@ -25,3 +25,8 @@
 .botton{
   text-align: right;
 }
+.jumbotron{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

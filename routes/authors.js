@@ -8,7 +8,6 @@ router.get('/', function ( req, res, next ) {
   .leftOuterJoin('books', 'books.id', 'books_authors.book_fk')
   .select('authors.id', 'books.title', 'authors.first_name', 'authors.last_name', 'authors.biography', 'authors.portrait_url', 'books_authors.book_fk')
   .then(function(authors){
-    console.log(authors);
           res.render('authors', {authors: authors});
         });
 } )
