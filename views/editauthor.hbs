@@ -1,14 +1,15 @@
 {{#author}}
-<form class="form-horizontal" action='/authors/{{author_id}}/edit' method='post'>
+<form class="form-horizontal" action='/authors/{{id}}/edit' method='post'>
+  {{id}}
   <fieldset>
     <div class="form-group">
       <label class="col-lg-2 control-label">First name</label>
       <div class="col-lg-4">
-        <input type="text" class="form-control" name='firstName' value="{{firstName}}">
+        <input type="text" class="form-control" name='firstName' value="{{first_name}}">
       </div>
       <label class="col-lg-1 control-label">Last name</label>
       <div class="col-lg-4">
-        <input class="form-control" name='lastName' value="{{lastName}}">
+        <input class="form-control" name='lastName' value="{{last_name}}">
       </div>
     </div>
     <div class="form-group">

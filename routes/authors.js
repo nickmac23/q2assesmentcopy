@@ -4,9 +4,13 @@ var queries = require('../lib');
 var knex = require('knex')(require('../knexfile')['development']);
 
 router.get('/', function ( req, res, next ) {
-  queries.listAll().then( function (authors) {
-    res.render('authors', {authors: authors});
-  });
+  return knex('authors').leftOuterJoin('books_authors', 'authors.id', 'books_authors.author_fk')
+  .leftOuterJoin('books', 'books.id', 'books_authors.book_fk')
+  .select('authors.id', 'books.title', 'authors.first_name', 'authors.last_name', 'authors.biography', 'authors.portrait_url', 'books_authors.book_fk')
+  .then(function(authors){
+    console.log(authors);
+          res.render('authors', {authors: authors});
+        });
 } )
 
 router.get('/addAuthor', function(req, res, next) {
@@ -16,13 +20,13 @@ router.get('/addAuthor', function(req, res, next) {
 router.post('/addAuthor', function (req, res, next ) {
   req.body.firstName = req.body.firstName.toLowerCase();
   req.body.lastName = req.body.lastName.toLowerCase();
-  return knex('authors').where({ firstName: req.body.firstName, lastName: req.body.lastName }).returning('author_id')
+  return knex('authors').where({ first_name: req.body.firstName, last_name: req.body.lastName }).returning('author_id')
     .then(function(author_id){
       if (author_id[0]) {
         console.log('exists');
         res.redirect('/authors')
       } else {
-        return knex('authors').insert({firstName: req.body.firstName, lastName: req.body.lastName,
+        return knex('authors').insert({first_name: req.body.firstName, last_name: req.body.lastName,
                                       biography: req.body.bio, portrait_url: req.body.url})
           .then( function(id) {
             res.redirect('/authors')
@@ -31,14 +35,11 @@ router.post('/addAuthor', function (req, res, next ) {
   })
 })
 router.get('/:id', function (req, res, next) {
-  var grr = [];
-  knex('booksAuthors').rightOuterJoin('authors', 'booksAuthors.author_fk', 'authors.id').rightOuterJoin('books', 'books.id', 'booksAuthors.book_fk').where({'authors.id': req.params.id})
+  knex('authors').leftOuterJoin('books_authors', 'books_authors.author_fk', 'authors.id').leftOuterJoin('books', 'books.id', 'books_authors.book_fk').where({'authors.id': req.params.id})
+  .select('authors.id', 'books.title', 'authors.first_name', 'authors.last_name', 'authors.biography', 'authors.portrait_url', 'books_authors.book_fk  ')
+
   .then( function (author) {
-    for (var i = 0; i < author.length; i++) {
-      grr.push(author[i].title)
-    }
-    console.log(author);
-    res.render('authors', {authors: author, titles: grr})
+    res.render('authors', {authors: author})
   })
 })
 router.post('/:id/delete', function (req, res, next) {
@@ -54,9 +55,10 @@ router.get('/:id/edit', function (req, res, next) {
     })
 })
 router.post('/:id/edit', function (req, res, next) {
+
   knex('authors').where({id: req.params.id}).update({
-    firstName: req.body.firstName.toLowerCase(),
-    lastName: req.body.lastName.toLowerCase(),
+    first_name: req.body.firstName.toLowerCase(),
+    last_name: req.body.lastName.toLowerCase(),
     biography: req.body.bio,
     portrait_url: req.body.url
   }).then( function () {
