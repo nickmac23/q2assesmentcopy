@@ -21,8 +21,16 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="/books/addbooks">Add Book<span class="sr-only">(current)</span></a></li>
-            <li><a href="/authors/addAuthor">add author</a></li>
+            {{#if b}}
+                <li><a href="/books/addbooks">Add Book<span class="sr-only">(current)</span></a></li>
+              {{else}}
+                <li><a href="/books/">Search Books<span class="sr-only">(current)</span></a></li>
+            {{/if}}
+            {{#if a}}
+                <li><a href="/authors/addAuthor">Add Author</a></li>
+              {{else}}
+                <li><a href="/authors">Search Authors</a></li>
+            {{/if}}
             {{#if gen}}
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Genre <span class="caret"></span></a>
@@ -47,6 +55,36 @@
       </div>
     </nav>
 
+    <div class="sidebar-wrapper col-lg-2">
+      <div class="list-group">
+        <a href="/books" class="list-group-item">Search Books</a>
+        {{#if b}}
+        <form  action="/books" method="post">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit">limit search</button>
+            </span>
+            <input type="text"  name='limit' class="form-control" value={{post}}>
+          </div><!-- /input-group -->
+        </form>
+        {{/if}}
+      </div>
+      <div class="list-group">
+        <a href="/authors" class="list-group-item">Search Authors</a>
+        {{#if a}}
+        <form  action="/authors" method="post">
+          <div class="input-group">
+            <span class="input-group-btn">
+              <button  class="btn btn-default" type="submit">limit search</button>
+            </span>
+            <input type="text" name='limit' class="form-control" placeholder="enter #">
+          </div><!-- /input-group -->
+        </form>
+        {{/if}}
+      </div>
+  </div>
+  <div class='col-lg-10'>
     {{{body}}}
+  </div>
   </body>
 </html>

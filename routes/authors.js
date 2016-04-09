@@ -8,7 +8,16 @@ router.get('/', function ( req, res, next ) {
   .leftOuterJoin('books', 'books.id', 'books_authors.book_fk')
   .select('authors.id', 'books.title', 'authors.first_name', 'authors.last_name', 'authors.biography', 'authors.portrait_url', 'books_authors.book_fk')
   .then(function(authors){
-          res.render('authors', {authors: authors});
+          res.render('authors', {authors: authors, a: 1});
+        });
+} )
+router.post('/', function ( req, res, next ) {
+  return knex('authors').leftOuterJoin('books_authors', 'authors.id', 'books_authors.author_fk')
+  .leftOuterJoin('books', 'books.id', 'books_authors.book_fk')
+  .select('authors.id', 'books.title', 'authors.first_name', 'authors.last_name', 'authors.biography', 'authors.portrait_url', 'books_authors.book_fk')
+  .limit(req.body.limit)
+  .then(function(authors){
+          res.render('authors', {authors: authors, a: 1});
         });
 } )
 

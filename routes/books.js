@@ -57,7 +57,20 @@ router.get('/', function(req, res, next) {
       knex('genres').then(function(genres){
         res.render('books', {
             gen: genres,
-            books: books
+            books: books,
+            b: 1,
+        });
+    });
+  });
+})
+router.post('/', function(req, res, next) {
+    queries.listSome(req.body.limit).then(function(books){
+      knex('genres').then(function(genres){
+        res.render('books', {
+            gen: genres,
+            books: books,
+            b: 1,
+            post: req.body.limit,
         });
     });
   });
@@ -103,10 +116,11 @@ router.post('/addbooks', function(req, res, next) {
   })
 })
 
-
-
 router.get('/:id', function(req, res, next) {
-    knex('books_authors').rightOuterJoin('authors', 'books_authors.author_fk', 'authors.id').rightOuterJoin('books', 'books.id', 'books_authors.book_fk').where({
+    knex('books_authors').rightOuterJoin('authors', 'books_authors.author_fk', 'authors.id')
+    .rightOuterJoin('books', 'books.id', 'books_authors.book_fk')
+    .rightOuterJoin('genres', 'books.genre_fk', 'genres.id')
+    .where({
             'books.id': req.params.id
         })
         .then(function(book) {
