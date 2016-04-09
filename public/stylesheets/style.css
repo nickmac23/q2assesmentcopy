@@ -14,8 +14,7 @@
   height: 700px;
   /*border: so: ;lid black 1px;*/
 }
-.sideNave{
-  border: solid black 1px;
+.sidebar-wrapper{
   height: 600px;
 }
 .row{
@@ -33,7 +32,3 @@
 main{
   float: right;
 }
-/*.limit{
-  margin-top: -20px;
-  width: 110%;
-}*/
